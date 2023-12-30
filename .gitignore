@@ -1,3 +1,4 @@
 node_modules
-.idx
+.idx/
 /server/node_modules/
+.next/
