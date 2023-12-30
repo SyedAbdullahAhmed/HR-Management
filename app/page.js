@@ -6,7 +6,7 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.description}>
         <p>
-          Get started by editing&nbsp;
+          Get started by Abdullah;
           <code className={styles.code}>app/page.js</code>
         </p>
         <div>
@@ -16,14 +16,14 @@ export default function Home() {
             rel="noopener noreferrer"
           >
             By{' '}
-            <Image
+            {/* <Image
               src="/vercel.svg"
               alt="Vercel Logo"
               className={styles.vercelLogo}
               width={100}
               height={24}
               priority
-            />
+            /> */}
           </a>
         </div>
       </div>
