@@ -1,11 +1,34 @@
 "use client"
+import React, { useState } from "react"
 import { useRouter } from 'next/navigation'
 
 const Home = () => {
 
   const router = useRouter()
-  const handleLoginSubmit = () => {
-    router.push("/login")
+  const [loginForm,setLoginForm] = useState({}) 
+
+  const handleInput = (e) => {
+    setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
+  }
+    const handleLoginSubmit = async(e) => {
+    e.preventDefault()
+
+    const url = "http://localhost:8000/admin";
+        try {
+            const response = await fetch(url);
+
+            if (response.ok) {
+                // console.log(loginForm)
+                // console.log(response.body);
+                console.log('data fecthec')
+
+                
+            } else {
+                console.error("Request Failed.");
+            }
+        } catch (error) {
+            console.error("An error occurred:", error);
+        }
   }
   return (
 
@@ -19,6 +42,9 @@ const Home = () => {
               type="email"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your email"
+              name="email"
+              value={loginForm?.email || ""}
+              onChange={handleInput}
             />
           </div>
           <div className="mb-6">
@@ -27,6 +53,9 @@ const Home = () => {
               type="password"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your password"
+              name="password"
+              value={loginForm?.password || ""}
+              onChange={handleInput}
             />
           </div>
           <button
