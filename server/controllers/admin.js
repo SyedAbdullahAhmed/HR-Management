@@ -6,13 +6,13 @@ module.exports.adminLogin = async (req, res) => {
         try {
             const results = await executeQuery(query);
             console.log(results);
-            res.send(results);
+            res.status(200).json({response : 'true', results});
         } catch (e) {
             console.log(e);
             res.status(500).send('Internal Server Error');
         }
     }
     catch (error) {
-        res.status(400).json({ response: 'true', message: error.message })
+        res.status(400).json({ response: 'false', message: error.message })
     }
 }

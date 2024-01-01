@@ -6,24 +6,31 @@ const Home = () => {
 
   const router = useRouter()
   const [loginForm, setLoginForm] = useState({})
+  const [error, setError] = useState(false)
 
+  // handle email and password
   const handleInput = (e) => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
   }
+
+  // handle submit
   const handleLoginSubmit = async (e) => {
     e.preventDefault()
 
-    const url = "https://4000-monospace-hr-1703843176789.cluster-nxnw2gov3naqkvuxb437f67u5e.cloudworkstations.dev";
     try {
-      const response = await fetch(url, {
-        method: 'GET',    
-      withCredentials: true,    
-      crossorigin: true,    
-      mode: 'no-cors',
-      });
+      const response = await fetch("http://localhost:8000");
+      const data = await response.json()
 
-      if (response.ok) {
-        console.log('data fetched');
+      if (data.response === 'true') {
+        if(data.results[0].admin_username === loginForm.username && data.results[0].admin_password === loginForm.password)
+        router.push('/login')
+        else {
+          setError(true)
+          setTimeout(()=>{
+            setError(false)
+          },4000)
+        }
+        
       } else {
         console.error("Request Failed.");
       }
@@ -36,16 +43,16 @@ const Home = () => {
 
       <div className="min-h-screen flex items-center justify-center">
         <div className="max-w-md w-full p-6 bg-white rounded-md shadow-md border-4">
-          <h2 className="text-2xl font-semibold mb-6 text-center">LOGIN</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center">ADMIN LOGIN</h2>
           <form>
             <div className="mb-4">
-              <label className="block text-gray-600 text-sm font-semibold mb-2">Email</label>
+              <label className="block text-gray-600 text-sm font-semibold mb-2">Username</label>
               <input
-                type="email"
+                type="text"
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                placeholder="Enter your email"
-                name="email"
-                value={loginForm?.email || ""}
+                placeholder="Enter your name"
+                name="username"
+                value={loginForm?.username || ""}
                 onChange={handleInput}
               />
             </div>
@@ -67,6 +74,9 @@ const Home = () => {
             >
               Login
             </button>
+            {error ? <div className="text-red-500 text-center">
+              Incorrect Username or Password
+            </div> : ""}
           </form>
         </div>
       </div>
