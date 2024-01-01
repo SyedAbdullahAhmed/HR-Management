@@ -2,7 +2,7 @@
 import React, { useState } from "react"
 import { useRouter } from 'next/navigation'
 
-const Home = () => {
+const Login = () => {
 
   const router = useRouter()
   const [loginForm, setLoginForm] = useState({})
@@ -18,12 +18,11 @@ const Home = () => {
     e.preventDefault()
 
     try {
-      const response = await fetch("http://localhost:8000");
+      const response = await fetch("http://localhost:8000/admin");
       const data = await response.json()
-
       if (data.response === 'true') {
         if(data.results[0].admin_username === loginForm.username && data.results[0].admin_password === loginForm.password)
-        router.push('/login')
+        router.push('/home')
         else {
           setError(true)
           setTimeout(()=>{
@@ -83,4 +82,4 @@ const Home = () => {
     )
   }
 
-  export default Home;
+  export default Login;
