@@ -21,6 +21,9 @@ const Navbar = () => {
           <Link href="/">
             <div className="text-white mx-4">Attendence</div>
           </Link>
+          <Link href="/employeeform">
+            <div className="text-white mx-4">+New Employee</div>
+          </Link>
         </div>
       </div>
     </nav>

@@ -37,6 +37,7 @@ module.exports.addEmployeePerInfo = async (req, res) => {
                 .json({
                     response: "true",
                     message: "Data inserted successfully!",
+                    data : results.insertId,
                 });
         res.status(400).json({
             response: "true",
@@ -129,8 +130,8 @@ module.exports.getEmployeeByIdCarInfo = async (req, res) => {
 
 module.exports.addEmployeeCarInfo = async (req, res) => {
     try {
-        const query = `INSERT INTO employeeCareerInfo (position, salary, hiringDate, experience, domain)
-        VALUES ('${req.body.fullName}','${req.body.position}' , '${req.body.hiringDate}', '${req.body.experience}', '${req.body.contactNumber}','${req.body.domain}' );`;
+        const query = `INSERT INTO employeeCareerInfo (empId,position, salary, hiringDate, experience, domain)
+        VALUES (${req.body.empId},'${req.body.position}','${req.body.salary}' , '${req.body.hiringDate}', '${req.body.experience}', '${req.body.domain}' );`;
         console.log(query);
         const results = await executeQuery(query);
         console.log(results);
@@ -140,6 +141,7 @@ module.exports.addEmployeeCarInfo = async (req, res) => {
                 .json({
                     response: "true",
                     message: "Data inserted successfully!",
+                    data : results.insertId,
                 });
         res.status(400).json({
             response: "true",
