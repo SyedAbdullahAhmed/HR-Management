@@ -51,18 +51,23 @@ module.exports.addEmployeePerInfo = async (req, res) => {
 
 module.exports.updateEmployeePerInfo = async (req, res) => {
     try {
-     const id = req.params.id;
-     const values = [];
-     const updateColumns = [];
-     
-     for (const key in req.body) {
-         if (req.body.hasOwnProperty(key)) {
-             updateColumns.push(`${key}=?`);
-             values.push(req.body[key]);
-         }
-     }
-     
-     const updateColumnsString = updateColumns.join(', ');
+        const id = req.params.id;
+        const values = [];
+        const updateColumns = [];
+        
+        
+        for (const key in req.body) {
+            if (req.body.hasOwnProperty(key) && req.body[key] !== "") {
+                updateColumns.push(`${key}=?`);
+                values.push(req.body[key]);
+            }
+        }
+        
+        const updateColumnsString = updateColumns.join(', ');
+        console.log(values);
+        
+        // Now, updateColumnsString will only contain non-empty values
+        
      
      const query = `UPDATE employeePersonalInfo SET ${updateColumnsString} WHERE empId = ?`;
      values.push(id);
@@ -74,6 +79,7 @@ module.exports.updateEmployeePerInfo = async (req, res) => {
      res.status(200).json({
          response: "true",
          message: "Data updated successfully!",
+         data : results
      });
      
     } catch (e) {
@@ -158,13 +164,14 @@ module.exports.updateEmployeeCarInfo = async (req, res) => {
      const id = req.params.id;
      const values = [];
      const updateColumns = [];
+     console.log(req.body)
      
      for (const key in req.body) {
-         if (req.body.hasOwnProperty(key)) {
-             updateColumns.push(`${key}=?`);
-             values.push(req.body[key]);
-         }
-     }
+        if (req.body.hasOwnProperty(key) && req.body[key] !== "") {
+            updateColumns.push(`${key}=?`);
+            values.push(req.body[key]);
+        }
+    }
      
      const updateColumnsString = updateColumns.join(', ');
      
@@ -178,6 +185,7 @@ module.exports.updateEmployeeCarInfo = async (req, res) => {
      res.status(200).json({
          response: "true",
          message: "Data updated successfully!",
+         data : results
      });
     } catch (e) {
         console.log(e);

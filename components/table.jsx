@@ -1,13 +1,13 @@
 "use client";
 // import Navbar from "./navbar";
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 const Home = () => {
     const [employeePerInfo, setEmployeePerInfo] = useState([]);
     const [employeeCarInfo, setEmployeeCarInfo] = useState([]);
     const [switchTable, setSwitchTable] = useState(true);
-    const router = useRouter()
+    const router = useRouter();
 
     const fetchData = async () => {
         try {
@@ -42,46 +42,58 @@ const Home = () => {
         console.log(employeeCarInfo);
     }, [employeePerInfo]);
 
-    const handlePersonalInfoDelete = async(empId) => {
+    const handlePersonalInfoDelete = async (empId) => {
         try {
-            const response = await fetch(`http://localhost:8000/employeePerInfo/${empId}`, {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
-        
+            const response = await fetch(
+                `http://localhost:8000/employeePerInfo/${empId}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
             if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            setEmployeePerInfo((prevData) => prevData.filter((employee) => employee.empId !== empId));
-            setEmployeeCarInfo((prevData) => prevData.filter((employee) => employee.empId !== empId));
-        
-            console.log('Employee deleted successfully.');
-          } catch (error) {
-            console.error('Error deleting employee:', error);
-          }
-    }
-    const handleCareerInfoDelete = async(empId) => {
-        try {
-            console.log(empId)
-            const response = await fetch(`http://localhost:8000/employeeCarInfo/${empId}`, {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
-        
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            setEmployeeCarInfo((prevData) => prevData.filter((employee) => employee.empId !== empId));
-        
-            console.log('Employee deleted successfully.');
-          } catch (error) {
-            console.error('Error deleting employee:', error);
-          }
-    }
+            setEmployeePerInfo((prevData) =>
+                prevData.filter((employee) => employee.empId !== empId)
+            );
+            setEmployeeCarInfo((prevData) =>
+                prevData.filter((employee) => employee.empId !== empId)
+            );
+
+            console.log("Employee deleted successfully.");
+        } catch (error) {
+            console.error("Error deleting employee:", error);
+        }
+    };
+    // const handleCareerInfoDelete = async(empId) => {
+    //     try {
+    //         console.log(empId)
+    //         const response = await fetch(`http://localhost:8000/employeeCarInfo/${empId}`, {
+    //           method: 'DELETE',
+    //           headers: {
+    //             'Content-Type': 'application/json',
+    //           },
+    //         });
+
+    //         if (!response.ok) {
+    //           throw new Error(`HTTP error! Status: ${response.status}`);
+    //         }
+    //         setEmployeeCarInfo((prevData) => prevData.filter((employee) => employee.empId !== empId));
+
+    //         console.log('Employee deleted successfully.');
+    //       } catch (error) {
+    //         console.error('Error deleting employee:', error);
+    //       }
+    // }
+    const handlePersonalInfoUpdate = (empId) => {
+        sessionStorage.setItem("employeeId", empId);
+        sessionStorage.setItem("update", true);
+        router.push('/employeeform')
+    };
 
     return (
         <>
@@ -128,13 +140,19 @@ const Home = () => {
                                         More
                                     </button>
                                     <button
-                                        onClick={() => handleUpdate(employee)}
+                                        onClick={() =>
+                                            handlePersonalInfoUpdate(employee.empId)
+                                        }
                                         className="bg-green-700 hover:bg-green-800 text-white px-3 py-1 mr-2 rounded-2xl transition duration-300 transform hover:scale-105"
                                     >
                                         Update
                                     </button>
                                     <button
-                                        onClick={() => handlePersonalInfoDelete(employee.empId)}
+                                        onClick={() =>
+                                            handlePersonalInfoDelete(
+                                                employee.empId
+                                            )
+                                        }
                                         className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-2xl transition duration-300 transform hover:scale-105"
                                     >
                                         Delete
