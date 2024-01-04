@@ -8,6 +8,8 @@ router.post('/employeePerInfo',employeeControllers.addEmployeePerInfo)
 router.put('/employeePerInfo/:id',employeeControllers.updateEmployeePerInfo)
 router.delete('/employeePerInfo/:id',employeeControllers.deleteEmployeePerInfo)
 
+router.get('/employeeNameAndPosition',employeeControllers.getAllEmployeeNameAndPosition)
+
 router.get('/employeeCarInfo',employeeControllers.getAllEmployeeCarInfo)
 router.get('/employeeCarInfo/:id',employeeControllers.getEmployeeByIdCarInfo)
 router.post('/employeeCarInfo',employeeControllers.addEmployeeCarInfo)

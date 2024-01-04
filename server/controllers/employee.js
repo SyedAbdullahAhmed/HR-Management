@@ -214,3 +214,15 @@ module.exports.deleteEmployeeCarInfo = async (req, res) => {
         res.status(400).json({ response: "false", message: e.message });
     }
 };
+
+module.exports.getAllEmployeeNameAndPosition = async(req,res) => {
+    try {
+        const query = `SELECT personal.empId,personal.fullName , career.position FROM employeePersonalInfo AS personal JOIN employeeCareerInfo AS career ON personal.empId=career.empId;`;
+        const results = await executeQuery(query);
+        console.log(results);
+        res.status(200).json({ response: "true", results });
+    } catch (e) {
+        console.log(e);
+        res.status(400).json({ response: "false", message: e.message });
+    }
+}

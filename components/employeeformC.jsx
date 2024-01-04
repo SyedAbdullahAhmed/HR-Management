@@ -27,7 +27,7 @@ const EmployeeFormC = () => {
     });
     const [formCareerInfo, setFormCareerInfo] = useState({
         position: "",
-        salary: "",
+        salary: 0,
         hiringDate: "",
         experience: "",
         domain: "",
@@ -369,9 +369,15 @@ const EmployeeFormC = () => {
                                 Senior Full Stack Developer
                             </option>
                             <option value="Jr UI/UX Designer">
-                                Jr Q/A Tester
+                            Jr UI/UX Designer
                             </option>
                             <option value="Senior UI/UX Designer">
+                            Senior UI/UX Designer
+                            </option>
+                            <option value="Jr Q/A Tester">
+                                Jr Q/A Tester
+                            </option>
+                            <option value="Senior Q/A Tester">
                                 Senior Q/A Tester
                             </option>
                         </select>
