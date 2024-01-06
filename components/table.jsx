@@ -4,30 +4,21 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const Home = () => {
-    const [employeePerInfo, setEmployeePerInfo] = useState([]);
-    const [employeeCarInfo, setEmployeeCarInfo] = useState([]);
+    const [employeeInfo, setEmployeeInfo] = useState([]);
     const [switchTable, setSwitchTable] = useState(true);
     const router = useRouter();
 
     const fetchData = async () => {
         try {
-            const response1 = await fetch(
-                "http://localhost:8000/employeePerInfo"
+            const response = await fetch(
+                "http://localhost:8000/employeeInfo"
             );
-            const response2 = await fetch(
-                "http://localhost:8000/employeeCarInfo"
-            );
-            if (!response1.ok) {
-                throw new Error(`HTTP error! Status: ${response1.status}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            if (!response2.ok) {
-                throw new Error(`HTTP error! Status: ${response2.status}`);
-            }
-            const data1 = await response1.json();
-            const data2 = await response2.json();
+            const data = await response.json();
             // console.log(data.results);
-            setEmployeePerInfo(data1.results);
-            setEmployeeCarInfo(data2.results);
+            setEmployeeInfo(data.results);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -38,9 +29,8 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        console.log(employeePerInfo);
-        console.log(employeeCarInfo);
-    }, [employeePerInfo]);
+        console.log(employeeInfo);
+    }, [employeeInfo]);
 
     const handlePersonalInfoDelete = async (empId) => {
         try {
@@ -57,10 +47,7 @@ const Home = () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            setEmployeePerInfo((prevData) =>
-                prevData.filter((employee) => employee.empId !== empId)
-            );
-            setEmployeeCarInfo((prevData) =>
+            setEmployeeInfo((prevData) =>
                 prevData.filter((employee) => employee.empId !== empId)
             );
 
@@ -69,26 +56,7 @@ const Home = () => {
             console.error("Error deleting employee:", error);
         }
     };
-    // const handleCareerInfoDelete = async(empId) => {
-    //     try {
-    //         console.log(empId)
-    //         const response = await fetch(`http://localhost:8000/employeeCarInfo/${empId}`, {
-    //           method: 'DELETE',
-    //           headers: {
-    //             'Content-Type': 'application/json',
-    //           },
-    //         });
 
-    //         if (!response.ok) {
-    //           throw new Error(`HTTP error! Status: ${response.status}`);
-    //         }
-    //         setEmployeeCarInfo((prevData) => prevData.filter((employee) => employee.empId !== empId));
-
-    //         console.log('Employee deleted successfully.');
-    //       } catch (error) {
-    //         console.error('Error deleting employee:', error);
-    //       }
-    // }
     const handlePersonalInfoUpdate = (empId) => {
         sessionStorage.setItem("employeeId", empId);
         sessionStorage.setItem("update", true);
@@ -112,7 +80,7 @@ const Home = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {employeePerInfo.map((employee) => (
+                        {employeeInfo.map((employee) => (
                             <tr key={employee.empId} className="bg-gray-100">
                                 <td className="py-2 px-3 text-center text-sm">
                                     {employee.fullName}
@@ -166,6 +134,7 @@ const Home = () => {
                 <table className="min-w-full bg-white border border-black-300 shadow-md ">
                     <thead>
                         <tr className="bg-gray-800 text-white">
+                            <th className="py-2 px-3">Name</th>
                             <th className="py-2 px-3">Position</th>
                             <th className="py-2 px-3">Salary</th>
                             <th className="py-2 px-3">Experience</th>
@@ -175,8 +144,11 @@ const Home = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {employeeCarInfo.map((employee) => (
+                        {employeeInfo.map((employee) => (
                             <tr key={employee.empId} className="bg-gray-100">
+                                <td className="py-2 px-3 text-center text-sm">
+                                    {employee.fullName}
+                                </td>
                                 <td className="py-2 px-3 text-center text-sm">
                                     {employee.position}
                                 </td>
@@ -197,14 +169,14 @@ const Home = () => {
                                         onClick={() => setSwitchTable(true)}
                                         className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 mr-2 rounded-2xl transition duration-300 transform hover:scale-105"
                                     >
-                                        More
+                                        Back
                                     </button>
-                                    <button
+                                    {/* <button
                                         onClick={() => handleUpdate(employee)}
                                         className="bg-green-700 hover:bg-green-800 text-white px-3 py-1 mr-2 rounded-2xl transition duration-300 transform hover:scale-105"
                                     >
                                         Update
-                                    </button>
+                                    </button> */}
                                     {/* <button
                                         onClick={() => handleCareerInfoDelete(employee.empId)}
                                         className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-2xl transition duration-300 transform hover:scale-105"

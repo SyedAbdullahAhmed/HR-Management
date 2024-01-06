@@ -1,16 +1,9 @@
-"use client";
-import Navbar from "../../components/navbar";
-import Table from "../../components/table"
-import { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation'
-
+import Navbar from "@/components/navbar";
 const Home = () => {
-    
-
     return (
         <>
             <Navbar />
-            <Table />
+            <div>helllo from home page</div>
         </>
     );
 };

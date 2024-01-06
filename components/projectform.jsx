@@ -5,7 +5,31 @@ import { useRouter } from "next/navigation";
 const ProjectForm = () => {
     const router = useRouter()
     const [sameMembers, setSameMembers] = useState(false);
+    const [updateForm, setUpdateForm] = useState();
     const [employeeList, setEmployeeList] = useState([]);
+    const [formProjectInfo, setFormProjectInfo] = useState({
+        projectName: "",
+        projectDesc: "",
+        projectStatus: "",
+        startDate: "",
+        endDate: "",
+        member1: 0,
+        member2: 0,
+        member3: 0,
+        teamLeader: 0,
+    });
+
+    // get id from list page
+    useEffect(() => {
+        const a = sessionStorage.getItem("updateProject");
+        setUpdateForm(a);
+        setUpdateForm((updatedForm) => {
+            console.log(updatedForm);
+            return updatedForm;
+        });
+    }, []);
+
+    // to get list of employees on page refersh    
     const fetchData = async () => {
         try {
             const response = await fetch(
@@ -30,17 +54,8 @@ const ProjectForm = () => {
         console.log(employeeList);
     }, [employeeList]);
 
-    const [formProjectInfo, setFormProjectInfo] = useState({
-        projectName: "",
-        projectDescription: "",
-        projectStatus: "",
-        startDate: "",
-        endDate: "",
-        member1: 0,
-        member2: 0,
-        member3: 0,
-        teamLeader: 0,
-    });
+    
+    // handle input change
     const handleProjectInfoChange = (e) => {
         const { name, value } = e.target;
         setFormProjectInfo((prevData) => ({
@@ -49,10 +64,13 @@ const ProjectForm = () => {
         }));
     };
 
+
+    // handle submit form
     const handleProjectInfoSubmit = async (e) => {
         e.preventDefault();
         console.log(formProjectInfo);
         try {
+        if(!updateForm) {
             const response = await fetch("http://localhost:8000/projects", {
                 method: "POST",
                 headers: {
@@ -70,10 +88,47 @@ const ProjectForm = () => {
                 },4000);
             }
             else{
-                data.data.affectedRows >= 1
-                ? console.log("data inserted")
-                : console.log("data not inserted");
+                if(data.data.affectedRows >= 1) {
+                    console.log("data inserted")
+                    router.push('/projectList')
+                }
+                else{
+                    console.log("data not inserted");
+                }
             }
+        }
+        else{
+            const id = sessionStorage.getItem("projectId");
+            console.log(id)
+            console.log(updateForm)
+            const response = await fetch(`http://localhost:8000/projects/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formProjectInfo),
+            });
+            
+            const data = await response.json();
+            console.log(data.message);
+            if(data.message === "Same persons are not allowed") {
+                setSameMembers(true)
+                setTimeout(() => {
+                    setSameMembers(false)                    
+                },4000);
+            }
+            else{
+                if(data.data.affectedRows >= 1) {
+                    console.log("data updated")
+                    router.push('/projectList')
+                }
+                else{
+                    console.log("data not updated");
+                }
+            }
+        }
+        
+           
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -81,9 +136,11 @@ const ProjectForm = () => {
 
     return (
         <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4 text-center">
+            {!updateForm ? (<h1 className="text-2xl font-bold mb-4 text-center">
                 CREATE PROJECT
-            </h1>
+            </h1>) : (<h1 className="text-2xl font-bold mb-4 text-center">
+                UPDATE PROJECT
+            </h1>)}
             <form
                 onSubmit={handleProjectInfoSubmit}
                 className="max-w-md mx-auto"
@@ -102,24 +159,24 @@ const ProjectForm = () => {
                         className="mt-1 p-2 border rounded-md w-full"
                         value={formProjectInfo?.projectName || ""}
                         onChange={handleProjectInfoChange}
-                        required
+                        required={!updateForm}
                     />
                 </div>
 
                 <div className="mb-4">
                     <label
-                        htmlFor="projectDescription"
+                        htmlFor="projectDesc"
                         className="block text-sm font-medium text-gray-600"
                     >
                         Project Description
                     </label>
                     <textarea
-                        id="projectDescription"
-                        name="projectDescription"
+                        id="projectDesc"
+                        name="projectDesc"
                         className="mt-1 p-2 border rounded-md w-full"
-                        value={formProjectInfo?.projectDescription || ""}
+                        value={formProjectInfo?.projectDesc || ""}
                         onChange={handleProjectInfoChange}
-                        required
+                        required={!updateForm}
                     />
                 </div>
 
@@ -136,7 +193,7 @@ const ProjectForm = () => {
                         name="projectStatus"
                         value={formProjectInfo.projectStatus}
                         onChange={handleProjectInfoChange}
-                        required
+                        required={!updateForm}
                     >
                         <option value="">Select Status</option>
                         <option value="Not Started">Not Started</option>
@@ -165,7 +222,7 @@ const ProjectForm = () => {
                             className="mt-1 p-2 border rounded-md w-full"
                             value={formProjectInfo?.startDate || ""}
                             onChange={handleProjectInfoChange}
-                            required
+                            required={!updateForm}
                         />
                     </div>
 
@@ -183,7 +240,7 @@ const ProjectForm = () => {
                             className="mt-1 p-2 border rounded-md w-full"
                             value={formProjectInfo?.endDate || ""}
                             onChange={handleProjectInfoChange}
-                            required
+                            required={!updateForm}
                         />
                     </div>
                 </div>
@@ -206,7 +263,7 @@ const ProjectForm = () => {
                             onChange={handleProjectInfoChange}
                             required
                         >
-                            <option value="">Select Member</option>
+                            <option value="">Select Leader</option>
                             {employeeList.map((element) => (
                                 <option
                                     key={element.empId}

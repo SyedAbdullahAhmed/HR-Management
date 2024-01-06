@@ -4,17 +4,8 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const EmployeeFormC = () => {
+    //use states
     const [updateForm, setUpdateForm] = useState();
-
-    useEffect(() => {
-        const a = sessionStorage.getItem("update");
-        setUpdateForm(a);
-        setUpdateForm((updatedForm) => {
-            console.log(updatedForm);
-            return updatedForm;
-        });
-    }, []);
-
     const [swichForm, setSwitchForm] = useState(true);
     const router = useRouter();
     const [formPersonalInfo, setFormPersonalInfo] = useState({
@@ -33,6 +24,19 @@ const EmployeeFormC = () => {
         domain: "",
     });
 
+    // get id from seesion storage from list page
+    useEffect(() => {
+        const a = sessionStorage.getItem("update");
+        setUpdateForm(a);
+        setUpdateForm((updatedForm) => {
+            console.log(updatedForm);
+            return updatedForm;
+        });
+    }, []);
+
+    
+   
+    // handle input changes
     const handleCareerInfoChange = (e) => {
         const { name, value } = e.target;
         setFormCareerInfo((prevData) => ({
@@ -49,6 +53,7 @@ const EmployeeFormC = () => {
         }));
     };
 
+    // handls submits
     const handlePersonalInfoSubmit = async (e) => {
         e.preventDefault();
         setSwitchForm(false);
@@ -58,7 +63,7 @@ const EmployeeFormC = () => {
         e.preventDefault();
         try {
             console.log(updateForm);
-            // for update
+            // for update employee form
             if (updateForm) {
                 const id = sessionStorage.getItem("employeeId");
                 const personalInfoResponse = await fetch(
@@ -93,12 +98,13 @@ const EmployeeFormC = () => {
                     : console.log("Career data not updated");
 
                     sessionStorage.setItem("update", false);
+                    
                     sessionStorage.removeItem("employeeId");
 
                 router.push('/home')
 
             } 
-            // for insert
+            // for insert employee form
             else {
                 const personalInfoResponse = await fetch(
                     "http://localhost:8000/employeePerInfo",

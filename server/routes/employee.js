@@ -16,4 +16,7 @@ router.post('/employeeCarInfo',employeeControllers.addEmployeeCarInfo)
 router.put('/employeeCarInfo/:id',employeeControllers.updateEmployeeCarInfo)
 router.delete('/employeeCarInfo/:id',employeeControllers.deleteEmployeeCarInfo)
 
+router.get('/employeeInfo',employeeControllers.getAllEmployeeInfo)
+
+
 module.exports = router
