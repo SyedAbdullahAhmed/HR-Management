@@ -14,7 +14,37 @@ module.exports.getAllProjects = async (req, res) => {
 module.exports.getProjectById = async (req, res) => {
     try {
         const id = req.params.id;
-        const query = `SELECT * FROM projects where projectId = ${id}`;
+        const query = `SELECT 
+        p.projectId,
+      p.projectName,
+      p.projectDesc,
+      p.projectStatus,
+      ep1.fullName AS member1FullName,
+      ec1.position AS member1Position,
+      ep2.fullName AS member2FullName,
+      ec2.position AS member2Position,
+      ep3.fullName AS member3FullName,
+      ec3.position AS member3Position,
+      ep4.fullName AS tlFullName,
+      ec4.position AS tlPosition
+    FROM 
+      projects AS p
+    JOIN 
+      employeePersonalInfo AS ep1 ON p.member1 = ep1.empId
+    JOIN 
+      employeeCareerInfo AS ec1 ON p.member1 = ec1.empId
+    JOIN 
+      employeePersonalInfo AS ep2 ON p.member2 = ep2.empId
+    JOIN 
+      employeeCareerInfo AS ec2 ON p.member2 = ec2.empId
+    JOIN 
+      employeePersonalInfo AS ep3 ON p.member3 = ep3.empId
+    JOIN 
+      employeeCareerInfo AS ec3 ON p.member3 = ec3.empId
+    JOIN 
+      employeePersonalInfo AS ep4 ON p.teamLeader = ep4.empId
+    JOIN 
+      employeeCareerInfo AS ec4 ON p.teamLeader = ec4.empId WHERE p.projectId = ${id};`;
         const results = await executeQuery(query);
         console.log(results);
         res.status(200).json({ response: "true", results });

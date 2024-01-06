@@ -280,7 +280,7 @@ const EmployeeFormC = () => {
                             type="date"
                             id="dob"
                             name="dob"
-                            value={formPersonalInfo?.dob || ""}
+                            value={formPersonalInfo?.dob.substring(0, 10) || ""}
                             onChange={handlePersonalInfoChange}
                             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                             required={!updateForm}
@@ -418,7 +418,7 @@ const EmployeeFormC = () => {
                             type="date"
                             id="hiringDate"
                             name="hiringDate"
-                            value={formCareerInfo?.hiringDate || ""}
+                            value={formCareerInfo?.hiringDate.substring(0, 10) || ""}
                             onChange={handleCareerInfoChange}
                             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                             required={!updateForm}

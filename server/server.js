@@ -11,9 +11,11 @@ app.use(express.json())
 const adminRouter = require('./routes/admin')
 const employeeRouter = require('./routes/employee')
 const projectRouter = require('./routes/project')
+const investorRouter = require('./routes/investor')
 app.use(adminRouter)
 app.use(employeeRouter)
 app.use(projectRouter)
+app.use(investorRouter)
 
 app.listen(port, () => {
   console.log(`App is running on ${port}...`);

@@ -76,6 +76,7 @@ module.exports.updateEmployeePerInfo = async (req, res) => {
         values.push(id);
 
         const results = await executeQuery(query, values);
+        console.log(results);
 
 
         res.status(200).json({
