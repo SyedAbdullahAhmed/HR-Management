@@ -6,8 +6,8 @@ router.get('/investors',investorControllers.getAllInvestors)
 router.get('/investorsPro',investorControllers.getAllInvestorsWithProjectName)
 router.get('/investorsPro/:id',investorControllers.getInvestorWithProjectNameById)
 router.get('/investors/:id',investorControllers.getInvestorById)
-// router.post('/investors',investorControllers.addInvestor)
-// router.put('/investors/:id',investorControllers.updateInvestorById)
-// router.delete('/investors/:id',investorControllers.deleteInvestorById)
+router.post('/investor',investorControllers.addInvestor)
+router.put('/investor/:id',investorControllers.updateInvestorById)
+router.delete('/investor/:id',investorControllers.deleteInvestorById)
 
 module.exports = router

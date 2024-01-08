@@ -120,6 +120,8 @@ const ProjectForm = () => {
             else{
                 if(data.data.affectedRows >= 1) {
                     console.log("data updated")
+                    sessionStorage.setItem("updateProject", false);
+                    sessionStorage.removeItem("projectId");
                     router.push('/projectList')
                 }
                 else{

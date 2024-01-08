@@ -27,6 +27,9 @@ const Navbar = () => {
           <Link href="/projectform">
             <div className="text-white mx-4">+New Project</div>
           </Link>
+          <Link href="/investor">
+            <div className="text-white mx-4">Investors</div>
+          </Link>
         </div>
       </div>
     </nav>

@@ -10,6 +10,16 @@ module.exports.getAllProjects = async (req, res) => {
         res.status(400).json({ response: "false", message: e.message });
     }
 };
+module.exports.getAllProjectsNames = async (req, res) => {
+    try {
+        const query = ` select projectId,projectName from projects;`;
+        const results = await executeQuery(query);
+        console.log(results);
+        res.status(200).json({ response: "true", results });
+    } catch (e) {
+        res.status(400).json({ response: "false", message: e.message });
+    }
+};
 
 module.exports.getProjectById = async (req, res) => {
     try {
