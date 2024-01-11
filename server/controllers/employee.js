@@ -12,6 +12,18 @@ module.exports.getAllEmployeePerInfo = async (req, res) => {
         res.status(400).json({ response: "false", message: e.message });
     }
 };
+module.exports.getAllEmployeesName = async (req, res) => {
+    try {
+        const query = `SELECT empId,fullName FROM employeePersonalInfo;`;
+
+        const results = await executeQuery(query);
+        console.log(results);
+
+        res.status(200).json({ response: "true", results });
+    } catch (e) {
+        res.status(400).json({ response: "false", message: e.message });
+    }
+};
 
 module.exports.getEmployeeByIdPerInfo = async (req, res) => {
     try {

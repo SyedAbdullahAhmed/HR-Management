@@ -17,6 +17,7 @@ router.put('/employeeCarInfo/:id',employeeControllers.updateEmployeeCarInfo)
 router.delete('/employeeCarInfo/:id',employeeControllers.deleteEmployeeCarInfo)
 
 router.get('/employeeInfo',employeeControllers.getAllEmployeeInfo)
+router.get('/employeeNames',employeeControllers.getAllEmployeesName)
 
 
 module.exports = router

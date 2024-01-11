@@ -12,10 +12,12 @@ const adminRouter = require('./routes/admin')
 const employeeRouter = require('./routes/employee')
 const projectRouter = require('./routes/project')
 const investorRouter = require('./routes/investor')
+const attendenceRouter = require('./routes/attendence')
 app.use(adminRouter)
 app.use(employeeRouter)
 app.use(projectRouter)
 app.use(investorRouter)
+app.use(attendenceRouter)
 
 app.listen(port, () => {
   console.log(`App is running on ${port}...`);

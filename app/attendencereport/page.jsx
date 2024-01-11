@@ -1,9 +1,9 @@
 "use client"
 import Navbar from "@/components/navbar";
-import AttendenceList from "@/components/attendencelist";
+import AttendenceReport from "@/components/attendenceReport";
 import { useRouter } from "next/navigation";
 const Attendence = () => {
-    const router = useRouter()
+     const router = useRouter()
     return (
         <>
             <Navbar />
@@ -23,7 +23,7 @@ const Attendence = () => {
                     Attendance Report
                 </button>
             </div>
-            <AttendenceList/>
+            <AttendenceReport/>
         </>
     );
 };
