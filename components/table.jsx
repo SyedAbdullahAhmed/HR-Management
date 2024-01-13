@@ -76,7 +76,7 @@ const Home = () => {
                             <th className="py-2 px-3">Email</th>
                             <th className="py-2 px-3">Contact</th>
                             <th className="py-2 px-3">Address</th>
-                            <th className="py-2 px-3">Actions</th>
+                            <th onClick={()=>router.push('/employeeform')} className="py-2 px-3 cursor-pointer">+New Employee</th>
                         </tr>
                     </thead>
                     <tbody>

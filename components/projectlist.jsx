@@ -77,7 +77,7 @@ const ProjectList = () => {
                             <th className="py-2 px-3 text-sm">
                                 Project Description
                             </th>
-                            <th className="py-2 px-3 text-sm">Actions</th>
+                            <th onClick={()=> router.push('/projectform')} className="py-2 px-3 text-sm cursor-pointer">+New Project</th>
                         </>
                     ) : (
                         <>
