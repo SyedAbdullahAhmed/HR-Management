@@ -65,26 +65,26 @@ const InestorList = () => {
                 <tr className="bg-gray-800 text-white">
                     
                         <>
-                            <th className="py-2 px-3 text-sm">Name</th>
-                            <th className="py-2 px-3 text-sm">Project Name</th>
-                            <th className="py-2 px-3 text-sm">Total Investement</th>
+                            <th className="py-2 px-3 text-sm">NAME</th>
+                            <th className="py-2 px-3 text-sm">PROJECT</th>
+                            <th className="py-2 px-3 text-sm">INVESTEMENT</th>
                             <th className="py-2 px-3 text-sm">
-                               Email
+                               EMAIL
                             </th>
                             <th className="py-2 px-3 text-sm">
-                                Phone
+                                PHONE
                             </th>
-                            <th className="py-2 px-3 text-sm">LinkedIn</th>
-                            <th className="py-2 px-3 text-sm">Websites</th>
+                            <th className="py-2 px-3 text-sm">LINKEDIN</th>
+                            <th className="py-2 px-3 text-sm">WEBSITES</th>
                             <th 
                             onClick={()=>{ sessionStorage.setItem("updateInvestor", false);router.push('/investorform')}}
-                            className="py-2 px-3 text-sm cursor-pointer">+New Investor</th>
+                            className="py-2 px-3 text-sm cursor-pointer">+NEW INVESTOR</th>
                         </>
                 </tr>
             </thead>
             <tbody>
-                {investor.map((element) => (
-                    <tr key={element.investorId} className="bg-gray-100">
+                {investor.map((element,index) => (
+                    <tr key={element.investorId} className={index % 2 === 0 ? "bg-gray-100" : ""}>
                        
                             <>
                                 <td className="py-2 px-3 text-center text-sm">
@@ -112,12 +112,12 @@ const InestorList = () => {
                                     <button 
                                     onClick={()=>handleUpdate(element.investorId)}
                                     className="bg-green-700 hover:bg-green-800 text-white px-3 py-1 mr-2 rounded-2xl transition duration-300 transform hover:scale-105">
-                                        Update
+                                        UPDATE
                                     </button>
                                     <button 
                                     onClick={()=>handleDelete(element.investorId)}
                                     className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-2xl transition duration-300 transform hover:scale-105">
-                                        Delete
+                                        DELETE
                                     </button>
                                 </td>
                             </>

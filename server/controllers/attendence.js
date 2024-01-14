@@ -75,60 +75,98 @@ module.exports.getAttendenceListByDate = async (req, res) => {
 };
 
 const dateParser = (date1) => {
-        const isoDateString = date1;
-        const date = new Date(isoDateString);
+    const isoDateString = date1;
+    const date = new Date(isoDateString);
 
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
 
-        const formattedDate = `${year}/${month}/${day}`;
-        return formattedDate
-}
+    const formattedDate = `${year}/${month}/${day}`;
+    return formattedDate;
+};
 
 module.exports.updateAttendenceList = async (req, res) => {
     try {
-        const finalArray = []
-        for(let i=0;i<req.body.length;i++) {
-            if(typeof req.body[i] !== undefined && req.body[i] !== null) {
-                finalArray.push(req.body[i])
+        const finalArray = [];
+        for (let i = 0; i < req.body.length; i++) {
+            if (typeof req.body[i] !== undefined && req.body[i] !== null) {
+                finalArray.push(req.body[i]);
             }
         }
 
-        // console.table(finalArray)
-
-        // const date1 = '2024-01-09T19:00:00.000Z';
-        // const isoDateString = date1;
-        // const date = new Date(isoDateString);
-
-        // const year = date.getFullYear();
-        // const month = String(date.getMonth() + 1).padStart(2, "0");
-        // const day = String(date.getDate()).padStart(2, "0");
-
-        // const formattedDate = `${year}/${month}/${day}`;
-
-        // const query = `UPDATE Attendence SET attendenceStatus='absent' WHERE empId = ${16} AND attendenceDate = '${formattedDate}';`;
-
-        // console.log(query);
-        // const results = await executeQuery(query);
-        // console.log(results)
-        // res.status(200).json({ response: "true", results });
-
         const updatePromises = finalArray.map(async (item) => {
-            const query = `UPDATE Attendence SET attendenceStatus='${item.status}' WHERE empId = ${item.empId} AND attendenceDate = '${dateParser(item.attendenceDate)}';`;
+            const query = `UPDATE Attendence SET attendenceStatus='${
+                item.status
+            }' WHERE empId = ${item.empId} AND attendenceDate = '${dateParser(
+                item.attendenceDate
+            )}';`;
             console.log(query);
-            // Uncomment the line below if you have an executeQuery function
             const results = await executeQuery(query);
-            // console.log(results);
         });
 
-        // Wait for all updates to complete
         await Promise.all(updatePromises);
 
-        // Send response after all updates are done
-        res.status(200).json({ response: "true" });
+        res.status(200).json({ response: "true" , message : "updated successfully"});
     } catch (e) {
         console.log(e);
         res.status(400).json({ response: "false", message: e.message });
     }
 };
+
+module.exports.getSalaryStatus = async (req, res) => {
+    try {
+        const query = `SELECT e.empId,e.fullName,c.salary,a.attendenceDate,a.attendenceStatus FROM Attendence as a JOIN employeePersonalInfo as e ON e.empId=a.empId JOIN employeeCareerInfo as c on e.empId=c.empId;`;
+        const results = await executeQuery(query);
+        console.log(results);
+        const finalArray = [];
+        const uniqueEmpIds = new Set();
+
+        for (let i = 0; i < results.length; i++) {
+            if (!uniqueEmpIds.has(results[i].empId)) {
+                let counter = 0;
+                let totalDays = 0
+                for (let j = 0; j < results.length; j++) {
+                    if (results[i].empId === results[j].empId) {
+                        totalDays++;
+                        if (
+                            results[j].attendenceStatus.toLowerCase() ===
+                            "present"
+                        ) {
+                            counter++;
+                        }
+                    }
+                }
+                finalArray.push({
+                    empId: results[i].empId,
+                    name : results[i].fullName,
+                    salary : results[i].salary,
+                    attendence: counter,
+                    totalDays: totalDays
+                });
+                uniqueEmpIds.add(results[i].empId);
+            }
+        }
+
+        console.log(finalArray);
+
+        res.status(200).json({ response: "true", results : finalArray });
+    } catch (e) {
+        console.log(e);
+        res.status(400).json({ response: "false", message: e.message });
+    }
+};
+
+module.exports.deleteAllAttendence = async(req,res)=>{
+     try {
+        const query = `DELETE FROM Attendence;
+        `;
+
+        const results = await executeQuery(query);
+        console.log(results);
+
+        res.status(200).json({ response: "true", results });
+    } catch (e) {
+        res.status(400).json({ response: "false", message: e.message });
+    }
+}

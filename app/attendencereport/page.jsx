@@ -22,6 +22,13 @@ const Attendence = () => {
                 >
                     Attendance Report
                 </button>
+            <button
+                 onClick={()=>router.push('/salary')}
+                    className="bg-blue-500 text-white px-4 py-2 mx-2 rounded"
+                    type="button"
+                >
+                    Salary Report
+                </button>
             </div>
             <AttendenceReport/>
         </>

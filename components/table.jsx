@@ -70,18 +70,18 @@ const Home = () => {
                 <table className="min-w-full bg-white border border-black-300 shadow-md ">
                     <thead>
                         <tr className="bg-gray-800 text-white">
-                            <th className="py-2 px-3">Name</th>
-                            <th className="py-2 px-3">Gender</th>
-                            <th className="py-2 px-3">Date Of Birth</th>
-                            <th className="py-2 px-3">Email</th>
-                            <th className="py-2 px-3">Contact</th>
-                            <th className="py-2 px-3">Address</th>
-                            <th onClick={()=>router.push('/employeeform')} className="py-2 px-3 cursor-pointer">+New Employee</th>
+                            <th className="py-2 px-3">NAME</th>
+                            <th className="py-2 px-3">GENDER</th>
+                            <th className="py-2 px-3">DATE OF BIRTH</th>
+                            <th className="py-2 px-3">EMAIL</th>
+                            <th className="py-2 px-3">CONTACT</th>
+                            <th className="py-2 px-3">ADDRESS</th>
+                            <th onClick={()=>router.push('/employeeform')} className="py-2 px-3 cursor-pointer">+NEW EMPLOYEE</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {employeeInfo.map((employee) => (
-                            <tr key={employee.empId} className="bg-gray-100">
+                        {employeeInfo.map((employee,index) => (
+                            <tr key={employee.empId} className={index % 2 === 0 ? "bg-gray-100" : ""} >
                                 <td className="py-2 px-3 text-center text-sm">
                                     {employee.fullName}
                                 </td>
@@ -105,7 +105,7 @@ const Home = () => {
                                         onClick={() => setSwitchTable(false)}
                                         className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 mr-2 rounded-2xl transition duration-300 transform hover:scale-105"
                                     >
-                                        More
+                                        MORE
                                     </button>
                                     <button
                                         onClick={() =>
@@ -113,7 +113,7 @@ const Home = () => {
                                         }
                                         className="bg-green-700 hover:bg-green-800 text-white px-3 py-1 mr-2 rounded-2xl transition duration-300 transform hover:scale-105"
                                     >
-                                        Update
+                                        UPDATE
                                     </button>
                                     <button
                                         onClick={() =>
@@ -123,7 +123,7 @@ const Home = () => {
                                         }
                                         className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-2xl transition duration-300 transform hover:scale-105"
                                     >
-                                        Delete
+                                        DELETE
                                     </button>
                                 </td>
                             </tr>
@@ -134,18 +134,18 @@ const Home = () => {
                 <table className="min-w-full bg-white border border-black-300 shadow-md ">
                     <thead>
                         <tr className="bg-gray-800 text-white">
-                            <th className="py-2 px-3">Name</th>
-                            <th className="py-2 px-3">Position</th>
-                            <th className="py-2 px-3">Salary</th>
-                            <th className="py-2 px-3">Experience</th>
-                            <th className="py-2 px-3">Domain Experience</th>
-                            <th className="py-2 px-3">Hiring Date</th>
-                            <th className="py-2 px-3">Actions</th>
+                            <th className="py-2 px-3">NAME</th>
+                            <th className="py-2 px-3">POSITION</th>
+                            <th className="py-2 px-3">SALARY</th>
+                            <th className="py-2 px-3">EXPERIENCE</th>
+                            <th className="py-2 px-3">DOMAIN EXPERIENCE</th>
+                            <th className="py-2 px-3">HIRING DATE</th>
+                            <th className="py-2 px-3">ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {employeeInfo.map((employee) => (
-                            <tr key={employee.empId} className="bg-gray-100">
+                        {employeeInfo.map((employee,index) => (
+                            <tr key={employee.empId} className={index % 2 === 0 ? "bg-gray-100" : ""}>
                                 <td className="py-2 px-3 text-center text-sm">
                                     {employee.fullName}
                                 </td>
@@ -169,7 +169,7 @@ const Home = () => {
                                         onClick={() => setSwitchTable(true)}
                                         className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 mr-2 rounded-2xl transition duration-300 transform hover:scale-105"
                                     >
-                                        Back
+                                        BACK
                                     </button>
                                     {/* <button
                                         onClick={() => handleUpdate(employee)}

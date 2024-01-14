@@ -70,14 +70,14 @@ const ProjectList = () => {
                 <tr className="bg-gray-800 text-white">
                     {moreInfo ? (
                         <>
-                            <th className="py-2 px-3 text-sm">Project Name</th>
+                            <th className="py-2 px-3 text-sm">PROJECT NAME</th>
                             <th className="py-2 px-3 text-sm">
-                                Project Status
+                                PROJECT STATUS
                             </th>
                             <th className="py-2 px-3 text-sm">
-                                Project Description
+                                PROJECT DESCRIPTION
                             </th>
-                            <th onClick={()=> router.push('/projectform')} className="py-2 px-3 text-sm cursor-pointer">+New Project</th>
+                            <th onClick={()=> router.push('/projectform')} className="py-2 px-3 text-sm cursor-pointer">+NEW PROJECT</th>
                         </>
                     ) : (
                         <>
@@ -105,8 +105,8 @@ const ProjectList = () => {
                 </tr>
             </thead>
             <tbody>
-                {project.map((element) => (
-                    <tr key={element.projectId} className="bg-gray-100">
+                {project.map((element,index) => (
+                    <tr key={element.projectId} className={index % 2 === 0 ? "bg-gray-100" : ""}>
                         {moreInfo ? (
                             <>
                                 <td className="py-2 px-3 text-center text-sm">
@@ -123,17 +123,17 @@ const ProjectList = () => {
                                     // onClick={()=>setMoreInfo(false)}
                                     onClick={()=>handleMore(element.projectId)}
                                     className="bg-blue-700 hover:bg-blue-800 text-white px-3 py-1 mr-2 rounded-2xl transition duration-300 transform hover:scale-105">
-                                        More
+                                        MORE
                                     </button>
                                     <button 
                                     onClick={()=>handleUpdate(element.projectId)}
                                     className="bg-green-700 hover:bg-green-800 text-white px-3 py-1 mr-2 rounded-2xl transition duration-300 transform hover:scale-105">
-                                        Update
+                                        UPDATE
                                     </button>
                                     <button 
                                     onClick={()=>handleDelete(element.projectId)}
                                     className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-2xl transition duration-300 transform hover:scale-105">
-                                        Delete
+                                        DELETE
                                     </button>
                                 </td>
                             </>

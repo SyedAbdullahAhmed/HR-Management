@@ -1,12 +1,13 @@
 "use client"
 import Navbar from "@/components/navbar";
-import AttendenceList from "@/components/attendencelist";
+import SalaryReport from "@/components/salaryreport";
 import { useRouter } from "next/navigation";
-const Attendence = () => {
-    const router = useRouter()
-    return (
-        <>
-            <Navbar />
+
+const Salary = () => {
+     const router = useRouter()
+     return (
+          <>
+          <Navbar />
             <div className="flex justify-end items-center p-4">
                 <button
                 onClick={()=>router.push('/attendence')}
@@ -22,7 +23,7 @@ const Attendence = () => {
                 >
                     Attendance Report
                 </button>
-            <button
+                <button
                  onClick={()=>router.push('/salary')}
                     className="bg-blue-500 text-white px-4 py-2 mx-2 rounded"
                     type="button"
@@ -30,9 +31,9 @@ const Attendence = () => {
                     Salary Report
                 </button>
             </div>
-            <AttendenceList/>
-        </>
-    );
-};
+            <SalaryReport/>
+            </>
+     )
+}
 
-export default Attendence;
+export default Salary;
