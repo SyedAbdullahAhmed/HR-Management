@@ -18,10 +18,11 @@ const InvestorForm = () => {
         // get id from list page
         useEffect(() => {
             const a = sessionStorage.getItem("updateInvestor");
-            setUpdateInvestor(Boolean(a));
+            console.log("got from another page : ", a);
+            setUpdateInvestor(a);
             setUpdateInvestor((updateInvestor) => {
-                console.log(updateInvestor);
-                console.log(!updateInvestor);
+                console.log("after set : ",updateInvestor);
+                console.log("after check : ",(updateInvestor === 'true'));
                 console.log(typeof updateInvestor);
                 return updateInvestor;
             });
@@ -69,7 +70,7 @@ const InvestorForm = () => {
            }
            
            try {
-           if(updateInvestor === false) {
+           if(updateInvestor === 'false') {
                console.log('condidion false')
                const response = await fetch("http://localhost:8000/investor", {
                    method: "POST",
@@ -88,7 +89,7 @@ const InvestorForm = () => {
                        console.log("data not inserted");
            }
           }
-           else{
+           else if (updateInvestor === 'true'){
                const id = sessionStorage.getItem("investorId");
                console.log(id)
                console.log('condidtion rtue')
@@ -118,13 +119,13 @@ const InvestorForm = () => {
 
     return (
         <div className="container mx-auto p-4">
-            {updateInvestor === false ? (
+            {updateInvestor === 'false' ? (
                 <h1 className="text-2xl font-bold mb-4 text-center">
-                    CREATE PROJECT
+                    CREATE INVESTOR
                 </h1>
             ) : (
                 <h1 className="text-2xl font-bold mb-4 text-center">
-                    UPDATE PROJECT
+                    UPDATE INVESTOR
                 </h1>
             )}
             <form

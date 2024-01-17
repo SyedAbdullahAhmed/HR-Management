@@ -1,36 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Clone Repository or download zip file.
+# Repository Link (github.com/SyedAbdullahAhmed/HR)
 
-## Getting Started
+1: Open folder on vscode.
 
-First, run the development server:
+2: Open two terminals.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+3: In 1st terminal type (dir + enter).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4: If list of files shows it's ok else type (cd HR + enter).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+5: In 1st terminal type (npm i + enter) for installing node_modules for Nextjs.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+6: In 2nd terminal type (cd server + enter) then (npm i + enter) for backend.
 
-## Learn More
+7: After installation , in 1st terminal type (npm run dev + enter) for starting nextjs server and open browser and type (http://localhost:3000).
 
-To learn more about Next.js, take a look at the following resources:
+8: In 2nd terminal type (node --watch server.js + enter) , make sure 'Db connected shown'.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+9: Now explore project, Good Luck!

@@ -22,7 +22,7 @@ const Login = () => {
       const data = await response.json()
       if (data.response === 'true') {
         if(data.results[0].admin_username === loginForm.username && data.results[0].admin_password === loginForm.password)
-        router.push('/home')
+        router.push('/employee')
         else {
           setError(true)
           setTimeout(()=>{
