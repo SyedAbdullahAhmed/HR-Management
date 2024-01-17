@@ -122,7 +122,7 @@ module.exports.deleteEmployeePerInfo = async (req, res) => {
         });
     } catch (e) {
         console.log(e);
-        res.status(400).json({ response: "false", message: e.message });
+        res.status(400).json({ response: "false", message: "first remove employee from project" });
     }
 };
 

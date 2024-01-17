@@ -101,7 +101,7 @@ const EmployeeFormC = () => {
                     
                     sessionStorage.removeItem("employeeId");
 
-                router.push('/home')
+                router.push('/employee')
 
             } 
             // for insert employee form
@@ -141,7 +141,7 @@ const EmployeeFormC = () => {
 
                     if (careerInfoResponse.ok) {
                         console.log("Data inserted successfully");
-                        router.push("/home");
+                        router.push("/employee");
                     } else {
                         console.error(
                             "Error inserting into employeeCareerInfo:",

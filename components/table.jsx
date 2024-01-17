@@ -44,6 +44,10 @@ const Home = () => {
                 }
             );
 
+            const data = await response.json()
+            if(data.message === 'first remove employee from project') {
+                alert('First Remove Employee From Project')
+            }
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
