@@ -1,29 +1,18 @@
-# Clone Repository or download zip file.
-# Repository Link (github.com/SyedAbdullahAhmed/HR)
+# Human Resource Management System
 
-1: Open folder on vscode.
-2: Open two terminals.
-3: In 1st terminal type (dir + enter).
-4: If list of files shows it's ok else type (cd HR + enter).
-5: In 1st terminal type (npm i + enter) for installing node_modules for Nextjs.
-6: In 2nd terminal type (cd server + enter) then (npm i + enter) for backend.
-7: After installation , in 1st terminal type (npm run dev + enter) for starting nextjs server and open browser and type (http://localhost:3000).
-8: In 2nd terminal type (node --watch server.js + enter) , make sure 'Db connected shown'.
-9: Now explore project, Good Luck!
+This is a comprehensive Company Management System designed to streamline various administrative tasks within a company. It includes features such as Admin Login, Employee Management, Investor Management, Project Management, Team Assignment, Attendance Management, and Salary Calculation.
 
+## Features
 
-https://github.com/SyedAbdullahAhmed/HRM
-HRM
-Programming Language : NextJs, NodeJs, ExpressJs
-Database : MySQL
-Style : Tailwind CSS
+1. **Admin Login:** Secure access for administrators to manage the system.
+2. **Employee Management:** Manage employee details including personal information, contact details, and job roles.
+3. **Investor Management:** Keep track of investor information such as contact details, investments made, and shares owned.
+4. **Project Management:** Efficiently manage projects, including creation, tracking, and updating project details.
+5. **Team Assignment:** Assign team leaders and members to different projects for effective project execution.
+6. **Attendance Management:** Track employee attendance based on dates, facilitating efficient workforce management.
+7. **Salary Calculation:** Automatically calculate salaries based on predefined salary structures and attendance records.
 
-Employee,Investor Management
-
-Project Management - Assign Team Member and Leader
-
-Attendence Management - A/C to Dates
-
-
-
-
+## Technologies
+1. **Frontend :** NextJs
+2. **Backend :** Nodejs
+3. **Database :** MySQL
